@@ -1,12 +1,12 @@
 # README file for stilt model R code
 ### Id: STILT_README.md, 29-01-2024 D. Kivits $
----
+
 DISCLAIMER: THIS IS THE ORIGINAL README FILE FOR THE STILT MODEL R CODE. IT HAS NOT BEEN UPDATED SINCE 2008.
 This directory contains all R scripts needed to run STILT, the receptor oriented modelling package.
 Instructions to install STILT is given below under 'INSTALLING STILT'.
 An example on how to run STILT is given below under 'RUNNING STILT'.
 A listing of all functions used and what they do is given under 'DIRECTORY LISTING'.
----
+
 
 ## INSTALLING STILT
 1. If not yet done, install R, also libraries "foreign" and "fields".
@@ -56,7 +56,7 @@ or "stilt.qsub.csh" here.
 
 
 REST NOT UPDATED YET!
----
+
 old 4) and 5) and 6) not rqd???
 
 4. Start R, assign the pathname to the r script directory, and source all required scripts with sourceall.r
@@ -79,7 +79,7 @@ old 4) and 5) and 6) not rqd???
         -- run script gen_veg_mat.r in R, before need to assign vegpath (e.,g. vegpath<-"/group/stilt/Vegetation/")
         -- quit R without saving: q(save="no")
 
----
+
 # RUNNING STILT
 
 STILT is here regarded as the whole package, that consists of the main functions
@@ -91,7 +91,7 @@ Trajecfoot() ==> calculates footprints or influence functions from particle loca
 
 A tutorial of how to use the most important functions and how to plot influence functions is in 0stilt_tutorial.r
 
----
+
 ## Preparing input and parameters
 INPUT
 Input to STILT are receptor locations and times. An R-object needs to be created that contains that
@@ -113,9 +113,8 @@ location files are there, Trajectories will be recalculated), fluxTF (calculatin
 fluxes), footprintTF (calculating footprints or influences).
 For details see documentation within setStiltparam.r
 
----
+
 ## Running STILT
----
 Change to directory STILT/Rsc (in which all r scripts are found).
 
 From command line call STILT with:
@@ -128,10 +127,7 @@ in the directory (refered to as sourcepath), and calls the function 'Trajecmod()
 'Trajec()' for each starting time to calculate paricle dirstributions, and (if desired) calls
 Trajecflux() to calculate mixing ratios and Trajecfoot() to derive footprints.
 
----
 ## Output from STILT
----
-
 Particle location objects:
 objects containing time since release (backward with negative time), with names that reflect
 time and position of the receptor (e.g. "2002x08x16x06x42.54Nx072.17Wx00030").
@@ -151,12 +147,8 @@ time and position of the receptor (e.g. "foot2002x08x16x06x42.54Nx072.17Wx00030"
 These objects are saved in files like "/STILT/Output/.Rdatafoot2002x08x16x06x42.54Nx072.17Wx00030" using assignr() (see below),
 and they can be retrieved using getr (see below).
 
-
----
 ## DIRECTORY LISTING
----
-
-assignr.r
+### assignr.r
 function assignr(xname, value, path="",printTF=FALSE,gz=FALSE)
 see also getr() and existsr()
 to avoid large databases that take too long to load memory (as R tries...)
@@ -167,10 +159,8 @@ example: assignr("test",temp,path="/mydir/") creates file "/mydir/.RDatatest"
 that can be attached and contains a single object with name "test"
 printTF:  if TRUE, prints info about file creation
 gz:       if TRUE, compresses file after creation with gzip
----
 
----
-combine.met.r
+### combine.met.r
 function combine.met(year=99,startmonth=1,endmonth=12, metd="fnl",metlib="/group/stilt/Metdata/",outlib=metlib)
 function to combine arl met data (to avoid hymodelc crashing at beginning of month...)
 combines met files, using cat
@@ -180,10 +170,8 @@ combines met files, using cat
 'metd':        type of metfile ("edas" or "fnl")
 'metlib':      where metdata are read from
 'outlib':      where metdata are written to
----
 
----
-create_times.r
+### create_times.r
 script
 creates object "Times.hf" w/ starting times for HF
 output is a matrix with 4 columns:
@@ -191,46 +179,34 @@ output is a matrix with 4 columns:
 -lat (deg N)
 -lon (deg E)
 -altitude (meters above ground)
----
 
----
-day.of.week.r
+### day.of.week.r
 function day.of.week(month, day, year)
 day.of.week(month, day, year) returns day of week as number (0: Sun, 6: Sat)
----
 
----
-existsr.r
+### existsr.r
 function existsr(xname, path="")
 see also assignr() and getr()
 similar to exists(), but
 checks for object on stored location (file path/.Rdataxname)
----
 
----
-flttrack.r
+### flttrack.r
 function(lon,lat,col,cex,cities,pts,newmotifTF)
 Plots the flight tracks on top of map
----
 
----
-gen_veg_mat.r
+### gen_veg_mat.r
 script
 generates matrices with different resolutions for vegetation maps, from 1/6lat*1/4lon to coarser resolution
 saves objects with assignr() in location defined by 'vegpath' (set in script setStiltparam.r)
----
 
----
-getgridp.r
+### getgridp.r
 function getgridp(min.x, max.x, min.y, max.y, numpix.x, numpix.y,coarse.factor=1)
 Implements decisions in trajectory model about which emission grid to use
 by taking in vectors of min & max grid points
 Each element is a time point
 Returns vector of filenames (char) that would give correct file for emission grid
----
 
----
-getmetfile.r
+### getmetfile.r
 function getmetfile(yr=0,mon,day,hr,nhrs,metd="edas",doublefiles=F)
 A function that is smart enough to return the meteorological filename to be used in
 driving particle dispersion model when given the yr, mon, day, hr, & nhrs
@@ -245,10 +221,8 @@ Note that function only works right now for running model BACKWARDS (i.e., NEGAT
 if nhrs<0, then running model BACKWARDS
 'metd' meteorological data identifier, such as "edas", or "fnl" or "brams" or "rams" (RAMS NOT YET!)
 'doublefiles' should concatenated met files be used? Allows starting times between files
----
 
----
-getr.r
+### getr.r
 function getr(xname, path="",gz=FALSE)
 see also assignr() and existsr()
 to avoid large databases that take too long to load memory (as R tries...)
@@ -256,10 +230,8 @@ similar to get()
 gets object from stored location (file path/.Rdataxname)
 name of object is xname if file was writen with assignr()
 gz: flag, if TRUE, file is first gunziped (if uncompressed version does not exist), then uncompressed version is deleted.
----
 
----
-id2pos.r
+### id2pos.r
 function id2pos(id,sep="x")
 revers of id2pos
 function to create read identifying label for single receptor (location&time)
@@ -268,10 +240,8 @@ and alt as altitude above ground in kilometers
 example:
 id2pos("2002x08x03x10x+45.00x+090.00x00030")
 [1] 15555.42    45.00    90.00    30.00
----
 
----
-imagell.r
+### imagell.r
 function imagell(mat,lg=F,zlims=NULL,zoom=0,center=c(-72.172,42.536),rays=F){
 function to plot lat/lon image with maps
 'mat' matrix different rows for different latitudes, diff. columns as diff. longitudes (e.g. surface fluxes or footprint)
@@ -298,71 +268,51 @@ function to plot lat/lon image with maps
        any other: used as label for color legend
 
 returns vector c(zmin,zmax) for scaling
----
 
----
-image.plot.fix.r
+### image.plot.fix.r
 function image.plot.fix()
 fix to image.plot()
----
 
----
-image.plot.plt.fix.r
+### image.plot.plt.fix.r
 function image.plot.plt.fix()
 fix to image.plot.plt()
----
 
----
-is.inf.r
+### is.inf.r
 function is.inf(x)
 similar to Splus function; returns T if x is infinite
----
 
----
-julian.r
+### julian.r
 function julian(m, d, y, origin.)
 from Splus
 returns day since 1/1/1960
 'origin.' has format c(month = 1, day = 1, year = 1960)
----
 
----
-leap.year.r
+### leap.year.r
 function leap.year(y)
 from Splus
----
 
----
-lsr.r
+### lsr.r
 function lsr(path)
 lists all r objects in 'path' stored with assignr()
----
 
----
-memory.size.r
+### memory.size.r
 function memory.size()
 instead of memory.size in splus
 for linux only
 returns string indicating memory usage
----
 
----
-month.day.year.r
+### month.day.year.r
 function month.day.year(jul, origin.)
 reverse of julian
 returns month, day, year
 'jul' julian since 'origin.'
 'origin.' has format c(month = 1, day = 1, year = 1960)
----
 
----
-motif.r
+### motif.r
 function(...)
 For backward compatibility with older S scripts
----
 
----
-pos2id.r
+### pos2id.r
 function pos2id(jultime,lat,lon,alt,sep="x")
 function to create identifying label for single receptor (location&time)
 expects jultime as fractional julian day since 1/1/1960
@@ -370,17 +320,13 @@ expects alt as altitude above ground in meters
 example:
  pos2id(15555.4166667,45,-90,0.03)
 [1] "2002x08x03x10x+45.00x+090.00x00030"
----
 
----
-read.asc.r
+### read.asc.r
 function read.asc(file)
 Facilitates importing files generated by SAS, which are blank-separated values
   and may contain '.' as symbol for NAs
----
 
----
-read.bground.r
+### read.bground.r
 function read.bg(spec,datename,pathin,pathout)
 reads initial field for CO2, CO, CH4, or H2, from ascii data that were created using sas
 
@@ -394,17 +340,12 @@ assigns *.ini objects (3-D array altitude * Latitude * Day since 1/1/1960)
 time is 0 at 1/1/1960 (i.e. elapsed days since 1/1/1960; similar to julian() with default origin.)
  e.g. read.bg(spec=c("CO2","CO"),datename="1_1_99_12_31_02",pathin="/group/stilt/Boundary/",pathout="~johnlin/Rdat/")
 
----
-
----
-rmr.r
+### rmr.r
 function rmr(xname,path)
 similar to exists(), but
 removes object at stored location (file path/.Rdataxname)
----
 
----
-rp2ll.r
+### rp2ll.r
 function rp2ll(r,p,lon0=-72.172,lat0=42.536)
 function to convert from polar coordinates (r, p as distance and angle) to lon,lat
 'r'	distance from center
@@ -413,45 +354,33 @@ function to convert from polar coordinates (r, p as distance and angle) to lon,l
 'lat0'	center latitude (origin)
 
 returns lat and lon
----
 
----
-setStiltparam.r
+### setStiltparam.r
 script
 set parameters needed for STILT
 THIS NEEDS TO BE EDITED SO THAT STILT DOES THE RIGHT THINGS
----
 
----
-sourceall.r
+### sourceall.r
 script
 sources all required R functions found in directory 'sourcepath' (global variable)
----
 
----
-stdev.r
+### stdev.r
 function stdev(x,na.rm=F)
 returns standard deviation (sqrt(var))
----
 
----
-stilt.r
+### stilt.r
 script
 sources all required R functions for STILT, then calls Trajecmod()
 saves logfile (info for individual receptor runs) to object with date and time in name
 example: ./Runs.done/.RDatarun.info.Mar..9.18:36:21.2004
 this can be retrieved to R with info<-getr("run.info.Mar..9.18:36:21.2004",path="./Runs.done/")
----
 
----
-trajwind.r
+### trajwind.r
 function (yr,mon,day,hr,lat,lon,agl,metlib=paste(unix("echo $HOME"),"/Metdat/",sep=""),
                       metfile=NULL,rundir="~/STILT/Exe/",RAMSTF=F,nummodel=0){
 Uses differences in positions of mean trajectories to calculate the mean wind at a specified time & position
----
 
----
-Trajecflux.r
+### Trajecflux.r
 function Trajecflux(ident,pathname="",tracers=c("CO","CO2"),coarse=1,dmassTF=T,nhrs=NULL,vegpath="/group/stilt/Vegetation/")
 calculate tracer concentrations for trajectories
 maps trajectories onto surface fluxes
@@ -469,10 +398,8 @@ maps trajectories onto surface fluxes
 
 returns vector containing mixing ratios etc. at endpoint (receptor)
 for timeseries (e.g. mixing ratio as fct of time back) needs some modifications
----
 
----
-Trajecfoot.r
+### Trajecfoot.r
 function Trajecfoot(ident,pathname="",foottimes,zlim=c(0,0),fluxweighting=NULL,coarse=1,dmassTF=T,vegpath="/home/gerbig/Rdat/Vegetation/",
 		     numpix.x=376,numpix.y=324,lon.ll=-145,lat.ll=11,lon.res=1/4,lat.res=1/6)
 Creates footprint or influence for individual particle runs
@@ -496,10 +423,8 @@ Creates footprint or influence for individual particle runs
 'lat.res'			resolution in degrees latitude
 
 returns: 3-D array (lat, lon, time) containing influence grids or footprints (lat,lon) for different times back
----
 
----
-Trajecmod.r
+### Trajecmod.r
 function Trajecmod()
 no arguments; these are set in setStiltparam.r
 Function that loops over all receptors (or only a part of it)
@@ -510,10 +435,8 @@ calls Trajecflux(), and assigns mixing ratio results for all receptors (e.g. 'st
 calls Trajecfoot() to derive footprints
 
 returns: object containing info generated by each run of Trajec()
----
 
----
-Trajec.r
+### Trajec.r
 function Trajec(yr=02,mon=8,day=1,hr=6,lat=42.536,lon=-72.172,agl=30,nhrs=-48,maxdist=20,
            delt=0.0,numpar=100,ndump=0,random=T,outdt=0.0,veght=0.5,metlib="/group/stilt/Metdata/",
            metd="edas",doublefiles=F,metfile=NULL,nturb=F,outfrac=0.9,conv=F,ziscale=NULL,
@@ -572,22 +495,16 @@ returns list of:
   2: new object assigned, ended early
   3: object already exists, not overwriten
   4: no object assigned; failed
----
 
----
-unix.r
+### unix.r
 function unix(command, intern = TRUE, ignore.stderr = FALSE)
 redefines unix as system() with intern=T as default
----
 
----
-unix.shell.r
+### unix.shell.r
 function unix.shell(command, shell = "/bin/sh", ...){
 like in Splus
----
 
----
-weekdayhr.r
+### weekdayhr.r
 function weekdayhr(yr,mon,day,hr,runtt,diffGMT=NA)
 Determines day of week and hour of day (needed to determine emission factors used to scale emissions)
 'yr','mon','day','hr' are individual numbers used to specify the starting time
@@ -597,6 +514,3 @@ Determines day of week and hour of day (needed to determine emission factors use
 	the longitude of current timestep--this is important if need this function to return LOCAL TIME
 Returns MATRIX with following columns:   1) yr 2) mon  3) day  4) hour of day  5)day of week
 	Day of week is value of 0~6, denoting Sun~Sat
----
-
-
