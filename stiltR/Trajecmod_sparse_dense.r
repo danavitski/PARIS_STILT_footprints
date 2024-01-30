@@ -5,7 +5,7 @@
 Trajecmod_sparse_dense <- function(partarg=NULL, totpartarg=NULL, nodeoffset=NULL, csv=TRUE, 
                            sparse = TRUE, dense= FALSE, significance = 15,
                            calc_sum = FALSE, ens_mem_num=NULL, npars=NULL, station=NULL, overwrite_fp = FALSE,
-                           overwrite = TRUE, rundir = NULL) {
+                           overwrite_lf = TRUE, rundir = NULL) {
    #---------------------------------------------------------------------------------------------------
    # Calls 'Trajec' for each starting time
    # arguments assigned from call to setStiltparam.r
@@ -22,7 +22,7 @@ Trajecmod_sparse_dense <- function(partarg=NULL, totpartarg=NULL, nodeoffset=NUL
    #                    as input from 
    # 'station'          controls the station name, which is used to create a unique name for the output files
    # 'overwrite_fp'     controls whether footprints are overwritten if they already exist
-   # 'overwrite'        controls whether trajectory files are overwritten if they already exist
+   # 'overwrite_lf'        controls whether trajectory files are overwritten if they already exist
    # 'rundir'           controls the directory in which STILT is ran
    #---------------------------------------------------------------------------------------------------
    

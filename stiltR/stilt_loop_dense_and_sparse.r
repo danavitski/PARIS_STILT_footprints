@@ -142,7 +142,7 @@ if (any(is.na(partinfo))) {
 # Call main STILT function, store run info
 run.info <- Trajecmod_sparse_dense(partarg=partarg, totpartarg=totpartarg, nodeoffset=nodeoffset, 
             csv=csv, sparse = sparse, dense = dense, calc_sum = calc_sum, ens_mem_num = ens_mem_num,
-            npars = nparstilt, station=station, overwrite_fp=overwrite_fp, rundir=rundir)
+            npars = nparstilt, station=station, overwrite_fp=overwrite_fp, overwrite_lf=overwrite_lf, rundir=rundir)
             
 }} else if (is.null(ens_members)){
 
@@ -166,7 +166,7 @@ if (any(is.na(partinfo))) {
 # Call main STILT function, store run info
 run.info <- Trajecmod_sparse_dense(partarg=partarg, totpartarg=totpartarg, nodeoffset=nodeoffset, 
             csv=csv, sparse = sparse, dense = dense, calc_sum = calc_sum, 
-            npars = nparstilt, station=station, overwrite_fp=overwrite_fp, rundir=rundir)
+            npars = nparstilt, station=station, overwrite_fp=overwrite_fp, overwrite_lf=overwrite_lf, rundir=rundir)
 }
 } else {
 
@@ -202,7 +202,7 @@ if (any(is.na(partinfo))) {
 # Call main STILT function, store run info
 run.info <- Trajecmod_sparse_dense(partarg=partarg, totpartarg=totpartarg, nodeoffset=nodeoffset, 
             csv=csv, sparse = sparse, dense = dense, calc_sum = calc_sum, 
-            npars = nparstilt, station=station, overwrite_fp=overwrite_fp, rundir=rundir)
+            npars = nparstilt, station=station, overwrite_fp=overwrite_fp, overwrite_lf=overwrite_lf, rundir=rundir)
 }
 }
 

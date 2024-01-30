@@ -1,0 +1,54 @@
+station,code,lon,lat,alt,type,utc2lst_offset,CSR_code,corrected_alt,cycle_num
+Beromunster,BRM,8.1755,47.1896,1009,2,1,dtBR5i,212,1
+Bialystok,BIK,23.0128,53.2294,483,1,1,dtBI5i,90,2
+Bilsdale,BSD,-1.15,54.359,628,1,0,htBS3i,248,2
+Birkenes,BIR,8.2519,58.3886,294,1,1,dcBIRi,40,2
+Biscarrosse,BIS,-1.2311,44.3781,120,1,1,dcBISi,47,3
+Cabauw,CBW,4.9264,51.9703,207,1,1,,,3
+Carnsore Point,CRP,-6.37,52.18,23,1,0,dsCRPi,14,3
+Centre de Recherches Atmosphériques,CRA,0.3692,43.1298,660,1,1,,,4
+Ersa,ERS,9.3801,42.9692,573,1,1,hmER2i,40,4
+Finokalia,FKL,25.6694,35.3378,265,1,2,hsFKLi,15,4
+Gartow,GAT,11.4429,53.0657,411,1,1,dtGA5i,341,5
+Hegyhátsál háttérszennyettség-mérő állomás,HUN,16.6522,46.9558,363,1,1,dtHU4i,115,5
+Heidelberg,HEI,8.675,49.4172,143,1,1,duHEIi,30,5
+Helgoland,HEL,7.8833,54.1804,153,1,1,,,6
+Heathfield,HFD,-0.231,50.977,100,1,0,,100,6
+Hohenpeissenberg,HPB,11.0246,47.8011,1065,2,1,dtHP4i,300,6
+Hyltemossa,HTM,13.4189,56.0976,265,1,1,dtHT3i,150,6
+Hyytiälä,SMR,24.2947,61.8474,306,1,2,dtSM3i,127,7
+Ispra,IPR,8.636,45.8147,310,1,1,,,7
+Jungfraujoch,JFJ,7.9851,46.5475,3585,2,1,nmJFJi,720,7
+Jülich,JUE,6.4096,50.9102,218,1,1,,,8
+Karlsruhe,KIT,8.4249,49.0915,310,1,1,dtKITi,200,8
+Kasprowy Wierch,KAS,19.9833,49.2333,1994,2,1,nmKASi,480,8
+Křešín u Pacova,KRE,15.08,49.572,784,1,1,dtKR3i,250,9
+Laegern-Hochwacht,LHW,8.3973,47.4822,872,1,1,hcLHWi,400,9
+Lampedusa,LMP,12.6322,35.5181,53,1,1,dsLMPi,10,9
+Lindenberg,LIN,14.1226,52.1663,171,1,1,dtLINi,99,10
+Lutjewad,LUT,6.3528,53.4036,61,1,1,dcLUTi,20,10
+Mace Head,MHD,-9.9036,53.3261,29,1,0,dsMHDi,15,10
+Malin Head,MLH,-7.333,55.3545,69,1,1,hsMLHi,47,11
+Monte Cimone,CMN,10.6999,44.1936,2173,2,1,nmCMNi,670,11
+Norunda,NOR,17.4794,60.0864,146,1,1,dtNO3i,100,11
+Observatoire de Haute Provence,OHP,5.712,43.931,750,1,1,htOHPi,100,12
+Observatoire pérenne de l'environnement,OPE,5.5036,48.5619,510,1,1,dtOP3i,120,12
+Ochsenkopf,OXK,11.8083,50.03,1185,2,1,nmOX3i,163,12
+Pallas,PAL,24.1157,67.9733,577,1,2,dcPALi,7,13
+Pic du Midi,PDM,0.1411,42.9372,2905,2,1,nmPD2i,1458,13
+Plateau Rosa,PRS,7.7,45.93,3490,2,1,nmPTRi,500,13
+Puijo,PUI,27.6549,62.9096,316,1,2,dtPUIi,84,14
+Puy de Dôme,PUY,2.9658,45.7719,1475,2,1,nmPUYi,400,14
+Ridge Hill,RGL,-2.5398,51.9974,289,1,0,dtRG2i,90,14
+Roc'h Trédudon,ROC,-3.8895,48.4133,502,1,1,,,15
+Saclay,SAC,2.142,48.7227,260,1,1,hsSA3i,100,15
+Schauinsland,SSL,7.9166,47.9167,1240,2,1,nmSI2i,450,15
+Steinkimmen,STE,8.4588,53.0431,281,1,1,dtST5i,252,16
+Svartberget,SVB,19.775,64.256,419,1,1,dtSV3i,150,16
+Tacolneston,TAC,1.1388,52.5177,241,1,1,dtTA3i,185,16
+Torfhaus,TOH,10.535,51.8088,948,1,1,dtTO3i,147,17
+Trainou,TRN,2.1125,47.9647,311,1,1,dtTR4i,180,17
+Utö - Baltic sea,UTO,21.3672,59.7839,65,1,2,hsUTOi,56,17
+Westerland,WES,8.308,54.9231,26,1,1,,,18
+Weybourne,WAO,1.121,52.95,41,1,0,dsWAOi,20,18
+Zugspitze,ZSF,10.9796,47.4165,2669,2,1,nmZSFi,2666,18
