@@ -1,0 +1,15 @@
+CVSROOT/
+Fltplan/
+Output/
+RAMS2ARL/
+STILT_Exe/
+ZSG_LEVS.IN
+arl2grad/
+backups/
+brams-stilt/
+case_studies/
+merged_stilt_hysplit/
+polarR/
+ramspost/
+setup.sh
+stilt_hysplit/
