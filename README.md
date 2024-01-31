@@ -18,25 +18,12 @@ This version of STILT was provided by Santiago Botia and is *not* the most recen
 
 ## USING STILT + added functionalities
 To prepare for a STILT run with the added sparse and multi-core functionality, the following input data is required:
-#metsource      generating model                      dt    dx [km]      file duration  filename example
-         #"edas"         Eta Data Assimilation System, NCEP    3h    80           0.5m           edas.subgrd.apr00.001
-         #"edas40"       NAM (Eta) Data Assimilation System    3h    40           0.5m           edas.apr04.002
-         #"fnl"          Global Data Assim, Syst. (GDAS) NCEP  6h    180          0.5m           fnl.nh.apr00.001
-         #"fnl.nh"        - same (default is nh)               6h    180          0.5m           fnl.nh.apr00.001
-         #"fnl.sh"        - southern hem.                      6h    180          0.5m           fnl.sh.apr00.001
-         #"brams"        Brazilian implementation of RAMS      ~0.3h 40           1d             brams_12_15_2003_1.bin
-         #"ecmw"         ECMWF                                 3h    35 (->2/06)  1d             ecmw.050511.arl
-         #                                                           25 (2/06->)  1m
-         #"ECmetF"       ECMWF, patched short term forecasts   3h    35 (->2/06)  72 - 144 h     ECmetF.05070100.arl
-         #                                                           25 (2/06->)
-         #"alad"         Aladin meso. forecasts (MeteoFrance)  3h    8            72h            aladinF.07042100.arl
-         #"wrf"          Weather Research & Forecasting        0.3h  2-50         ?h             d01.20051223.arl
-         #"d01", "do2",          WRF nested domains            0.3h  2-50         ?h             d01.20051223.arl
 
 1. Meteorological driver fields, provided in <.arl> format. For now, these are prepared by Thomas Koch of the MPI BG group in Jena as the conversion from GRIB to ARL proved to be more difficult than expected. The exact format of these meteorological driver fields can vary, depending on the source. A few of the (most popular) options that are coded into STILT are the following:
    - **ECMWF (ECmetF) forecast data**: 3 hour time resolution, 72-144h forecast, 25km (~.25 degree resolution) grid
    - **Aladin (alad) forecast data**: Aladin mesoscale forecasts (MeteoFrance), 3 hour time resolution, 72h forecast, 8km grid
    - **Weather Research & Forecasting (wrf) forecast data**: WRF nested domains, variable time and horizontal resolution and forecast duration.
+   - ... more options are available, have a look at the <stiltR/setStiltparam.r> script to see which options are available and how to add new ones.
 2. A station file, which contains all the station-specific metadata (i.e. station name, station code, latitude, longitude, STILT-corrected elevation), in which each row represents a different station. An example of this file is located over at <stationfiles/stationfile_all.csv>.
 3. STILT configuration files (i.e. <LANDUSE.ASC>; <ROUGLEN.ASC>; <ASCDATA.CFG>; and <runhymodelc.bat>), which are created in the <setup.sh> script that comes with the "default" installment of STILT (see <STILT_README.md>). The script copies these files from source directory (which by default is <stilt_hysplit/bdyfiles>) to the (station-specific) run directory.
 
