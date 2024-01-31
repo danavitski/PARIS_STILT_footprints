@@ -30,19 +30,30 @@ To prepare for a STILT run with the added sparse and multi-core functionality, t
     - the option to --overwrite-localization: the option to overwrite .RData localization files if they already exist. This is useful (for instance) if you want to rerun a STILT simulation with the same stochastic and turbulent effects on the particles, but would like to save the footprints in a different format (i.e. dense or sparse). By default, this is set to FALSE.
     - the option to --overwrite-footprints: the option to overwrite the footprint files if they already exist. By default, this is set to FALSE (and footprints are therefore skipped when they already exist, **even when STILT simulation parameters have changed**).
     - **the option to set relevant domain parameters (in the form of lat_ur, lat_ll, lon_ur, lon_ll, lon_res, lat_res, numpix_x, and numpix_y)**. If not given, it will take the default values defined in setStiltParam.r.
-    - **the option to run STILT for a specific --station: takes a three-letter stationcode as input, and runs STILT only for that station**. If not given, it will run STILT for all stations in the station file. As currently implemented in <batch_scripts/stilt-multistation.sh>, STILT is ran for one core per station and loops over all stations in the station file. 
+    - **the option to run STILT for a specific --station: takes a three-letter stationcode as input, and runs STILT only for that station**. If not given, it will run STILT for all stations in the station file. 
+    - the option to --calc-sum: this option controls whether the influence fields are summed over all timesteps of each STILT simulation, and therefore whether single-timestep footprints are returned or not.
+    - the option to define --ens-mem-num: this option controls how many times a STILT simulation is ran for (i.e. how many ensemble members are used). This is useful if you want to quantify the uncertainty in the STILT simulations caused by the stochastic and turbulent effects on the particles (i.e. the atmospheric transport itself). This also appends the footprint output name with the current ensemble member number, so that the footprints are not overwritten. By default, this option is switched off.
     
-     **EXPLAIN MORE ABOUT BASH SCRIPT HERE**. This setup script will create the neccessstation-specific) run and output directories, and will occupy each run directory with the setting files neccessary to run STILT (LANDUSE.ASC; ROUGLEN.ASC; ASCDATA.CFG; and runhymodelc.bat), which are created in the setup.sh script (see STILT_README.md). The script copies these files from source directory, which by default is <*parent_dir*/stilt_hysplit/bdyfiles>. 
+   The submit script loops over each station (row) in the user-defined stationfile and runs the <setup_multi.sh> script for each of these stations, which creates the neccessary (station-specific) run and output directories, and will occupy each run directory with the setting files neccessary to run STILT (<LANDUSE.ASC>; <ROUGLEN.ASC>; <ASCDATA.CFG>; and <runhymodelc.bat>), which are created in the <setup.sh> script that comes with the "default" installment of STILT (see <STILT_README.md>). The script copies these files from source directory, which by default is <stilt_hysplit/bdyfiles>.
+   
+   After the neccessary directories have been initialized and the STILT-specific run parameters have been set, the submit script will run STILT for each station in the stationfile. Before the job is taken out of the SLURM queue, the simulations for each station should be finished first.
+
 
 2. the setStiltParam.r script, which is used to set some neccessary STILT parameters that are not set in the STILT configuration file
    This script sets some important parameters that are not set in the submit script, namely:
-   - the name of localization and footprint files created by STILT (by default '.RData' and 'footprint_<station>_<timestamp>.nc' respectively).
+   - the name of localization and footprint files created by STILT (by default '.RData' and 'footprint_{station}_{timestamp}.nc' respectively).
    - some other turbulence and mixing layer parameters that I left mostly to their default values, but can be changed if needed.
    - some options to set up a version of STILT that uses an online calculation with externally provided fluxes (e.g. VPRM fluxes for the biosphere or EDGAR fluxes for the anthroposphere). This is not used in the current version of STILT, but might be useful in the future.
   
+
 3. the create_times.r script, which is used to define the time period and time resolution of the STILT run
    This script sets some important parameters that are not set in the submit script, namely:
    - **the start and end date of the STILT run (by default set to run for 2021)**.
    - the hours (in UTC) for which the option --filter-times filters the hours for which STILT is ran. This can be set separately for lowland and mountaineous sites, as described above.
    - the name of the file that contains the time period and time resolution of the STILT run (by default '.RDataTimes')
   
+## SOME KEY POINTS IN UNDERSTANDING THE STILT CODE
+The main STILT functionality can be reduced to a few key scripts:
+- <stiltR/Trajec.r>: Function to run HYSPLIT particle dispersion model and to check distribution of particles in the model domain. This function is called by the Trajecmod.r function for each timestep of the simulation.
+- <stiltR/Trajecmod_sparse_dense.r>: this function calls Trajec.r for each backwards simulation timestep (as defined by create_times.r), which is later fed into the Trajecfoot.r function to save as a footprint. 
+- <stiltR/Trajecfoot_sparse.r> & <stiltR/create_sparse_footprints_coords.r>: these functions are used to create the sparse footprint files. The first script filters the particles in the object from Trajec.r that are outside the model domain and returns the object as 2D dense array, and using the second script it can convert these 2D arrays to a sparse format if requested.
