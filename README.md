@@ -1,8 +1,8 @@
 # README file for STILT model with added sparse footprint saving multi-core execution functionality
-### Id: STILT_sparse_README.md, 29-01-2024 D. Kivits $
+### Id: README.md, 29-01-2024 D. Kivits $
 ---
 DISCLAIMER: THIS IS THE README FILE FOR THE STILT MODEL WITH ADDED SPARSE FOOTPRINT SAVING MULTI-CORE EXECUTION FUNCTIONALITY. 
-For *only* installing the "regular" version of STILT follow steps 1-6 of the instructions given in the STILT_README.md file. To install STILT *including* the added functionalities, follow this README file! 
+For *only* installing the "regular" version of STILT follow steps 1-6 of the instructions given in the <stiltR/README.md> file. To install STILT *including* the added functionalities, follow this README file! 
 
 This directory contains all R scripts needed to run STILT (the receptor oriented modelling package), as well as added functionality to save the footprint in a sparse format and run the model in parallel on multiple cores. 
 
@@ -82,3 +82,6 @@ The main STILT functionality can be reduced to a few key scripts:
 - <stiltR/Trajec.r>: Function to run HYSPLIT particle dispersion model and to check distribution of particles in the model domain. This function is called by the Trajecmod.r function for each timestep of the simulation.
 - <stiltR/Trajecmod_sparse_dense.r>: this function calls Trajec.r for each backwards simulation timestep (as defined by create_times.r), which is later fed into the Trajecfoot.r function to save as a footprint. 
 - <stiltR/Trajecfoot_sparse.r> & <stiltR/create_sparse_footprints_coords.r>: these functions are used to create the sparse footprint files. The first script filters the particles in the object from Trajec.r that are outside the model domain and returns the object as 2D dense array, and using the second script it can convert these 2D arrays to a sparse format if requested.
+---
+
+### **If some things related to STILT are still unclear, have a look at the stiltR/README.r document that describes the functionality of the "default" STILT installation in more detail.**
