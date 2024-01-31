@@ -1,8 +1,8 @@
 # README file for STILT model with added sparse footprint saving multi-core execution functionality
-### Id: STILT_sparse_README.md, 29-01-2024 D. Kivits $
+### Id: README.md, 29-01-2024 D. Kivits $
 ---
 DISCLAIMER: THIS IS THE README FILE FOR THE STILT MODEL WITH ADDED SPARSE FOOTPRINT SAVING MULTI-CORE EXECUTION FUNCTIONALITY. 
-For *only* installing the "regular" version of STILT follow steps 1-6 of the instructions given in the STILT_README.md file. To install STILT *including* the added functionalities, follow this README file! 
+For *only* installing the "regular" version of STILT follow steps 1-6 of the instructions given in the <stiltR/README.md> file. To install STILT *including* the added functionalities, follow this README file! 
 
 This directory contains all R scripts needed to run STILT (the receptor oriented modelling package), as well as added functionality to save the footprint in a sparse format and run the model in parallel on multiple cores. 
 
@@ -34,7 +34,7 @@ To prepare for a STILT run with the added sparse and multi-core functionality, t
     - the option to --calc-sum: this option controls whether the influence fields are summed over all timesteps of each STILT simulation, and therefore whether single-timestep footprints are returned or not.
     - the option to define --ens-mem-num: this option controls how many times a STILT simulation is ran for (i.e. how many ensemble members are used). This is useful if you want to quantify the uncertainty in the STILT simulations caused by the stochastic and turbulent effects on the particles (i.e. the atmospheric transport itself). This also appends the footprint output name with the current ensemble member number, so that the footprints are not overwritten. By default, this option is switched off.
     
-   The submit script loops over each station (row) in the user-defined stationfile and runs the <setup_multi.sh> script for each of these stations, which creates the neccessary (station-specific) run and output directories, and will occupy each run directory with the setting files neccessary to run STILT (<LANDUSE.ASC>; <ROUGLEN.ASC>; <ASCDATA.CFG>; and <runhymodelc.bat>), which are created in the <setup.sh> script that comes with the "default" installment of STILT (see <STILT_README.md>). The script copies these files from source directory, which by default is <stilt_hysplit/bdyfiles>.
+   The submit script loops over each station (row) in the user-defined stationfile and runs the <setup_multi.sh> script for each of these stations, which creates the neccessary (station-specific) run and output directories, and will occupy each run directory with the setting files neccessary to run STILT (<LANDUSE.ASC>; <ROUGLEN.ASC>; <ASCDATA.CFG>; and <runhymodelc.bat>), which are created in the <setup.sh> script that comes with the "default" installment of STILT (see <<stiltR/README.md>>). The script copies these files from source directory, which by default is <stilt_hysplit/bdyfiles>.
    
    After the neccessary directories have been initialized and the STILT-specific run parameters have been set, the submit script will run STILT for each station in the stationfile. Before the job is taken out of the SLURM queue, the simulations for each station should be finished first.
 
