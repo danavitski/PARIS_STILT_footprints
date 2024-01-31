@@ -1,8 +1,8 @@
-"""This script is based on the original stilt.r atmospheric transport model pipeline but 
-has some added functionality, such as the ability to run STILT in multi-core mode and 
-the optional creation of sparse footprints.
+# This script is based on the original stilt.r atmospheric transport model pipeline but 
+# has some added functionality, such as the ability to run STILT in multi-core mode and 
+# the optional creation of sparse footprints.
 
-Original script by C. Gerbig at MPI Jena (2010), modified by D. Kivits (2024)"""
+# Original script by C. Gerbig at MPI Jena (2010), modified by D. Kivits (2024)"""
 
 suppressPackageStartupMessages(library("argparse"))
 parser <- ArgumentParser(description='Run STILT for a single station or for all stations in a file')
@@ -22,6 +22,7 @@ parser$add_argument('--overwrite-footprints', default=FALSE, action='store_true'
 parser$add_argument('--path', help='The path to the directory where the footprints are stored')
 parser$add_argument('--rundir', help='The path to the directory where the STILT model is ran')
 parser$add_argument('--altdir', help='Optional extra (project-specific) path that creates a subdir in which the STILT model is ran')
+parser$add_argument('--metdir', help='The path to the directory where the meteorological data is stored')
 parser$add_argument('--sourcepath', help='The path to the directory where the STILT scripts reside')
 parser$add_argument('--stationfile', help='The path to the stationfile that stores all the station metadata (including 3D location)')
 parser$add_argument('--lon_ur', type='integer', help='The upper right longitude of the domain')
@@ -47,11 +48,12 @@ npars = args$npars
 nhrs = args$nhrs
 path = args$path
 rundir = args$rundir
+metpath = args$metdir
 altdir = args$altdir
 sourcepath = args$sourcepath
 overwrite_fp = args$overwrite_footprints
 overwrite_lf = args$overwrite_localization
-station <- args$station
+station = args$station
 
 # Define grid
 lon.ur = args$lon_ur

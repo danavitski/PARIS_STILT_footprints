@@ -13,11 +13,12 @@ cat("setStiltparam.r: starting...\n")
 #path<-"/projects/0/ctdas/PARIS/DATA/footprints/wur/" 		
 #path<-"/scratch-shared/dkivits/STILT/multi_batch_test/"   
 if (is.null(path)){path<-"/projects/0/ctdas/PARIS/DATA/footprints/wur/PARIS/"}          # path to in- and output data (Receptor locations and times) and boundary mixing ratio objectss
-if (is.null(rundir)){rundir<-"/projects/0/ctdas/PARIS/STILT_Model/STILT_Exe/"}              # specifies main directory where different directories are found to run hymodelc                                                         
+if (is.null(rundir)){rundir<-"/projects/0/ctdas/PARIS/STILT_Model/STILT_Exe/"}              # specifies main directory where different directories are found to run hymodelc
+if (is.null(metpath)){metpath<-"/projects/0/ctdas/PARIS/DATA/meteo/STILT/mpibgc/"}                           # path to met data in ARL format
 pathBinFootprint<-"/projects/0/ctdas/PARIS/STILT_Model/Output/PARIS/"
 shlibpath <- "/home/dkivits/R/x86_64-pc-linux-gnu-library/4.1/"                         # path to R extensions
-metpath <- "/projects/0/ctdas/PARIS/DATA/meteo/STILT/mpibgc/"                           # path to met data in ARL format
-vegpath<-""	                                                                            # path to surface fluxes and vegetation grids at various resolutions; not needed for VPRM                     
+vegpath<-""
+	                                                                            # path to surface fluxes and vegetation grids at various resolutions; not needed for VPRM                     
 cat("setStiltparam.r: outdir=", path,"\n")
 cat("setStiltparam.r: rundir=", rundir,"\n")
 cat("setStiltparam.r: metpath=", metpath,"\n")

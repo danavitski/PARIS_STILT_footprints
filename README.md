@@ -17,11 +17,34 @@ Fetch the STILT + sparse functionality from <[this repository on Github](https:/
 This version of STILT was provided by Santiago Botia and is *not* the most recent version of STILT. A tutorial on how to install the most recent version of STILT can be found on the STILT model development website, which seems to currently be offline: <[www.stilt-model.org]>(www.stilt-model.org). You will need to contact the developers to apply for a user account to access the Trac system, which is the STILT model development website.
 
 ## USING STILT + added functionalities
-To prepare for a STILT run with the added sparse and multi-core functionality, the followings files are needed (beside the default STILT R files and libraries):
+To prepare for a STILT run with the added sparse and multi-core functionality, the following input data is required:
+#metsource      generating model                      dt    dx [km]      file duration  filename example
+         #"edas"         Eta Data Assimilation System, NCEP    3h    80           0.5m           edas.subgrd.apr00.001
+         #"edas40"       NAM (Eta) Data Assimilation System    3h    40           0.5m           edas.apr04.002
+         #"fnl"          Global Data Assim, Syst. (GDAS) NCEP  6h    180          0.5m           fnl.nh.apr00.001
+         #"fnl.nh"        - same (default is nh)               6h    180          0.5m           fnl.nh.apr00.001
+         #"fnl.sh"        - southern hem.                      6h    180          0.5m           fnl.sh.apr00.001
+         #"brams"        Brazilian implementation of RAMS      ~0.3h 40           1d             brams_12_15_2003_1.bin
+         #"ecmw"         ECMWF                                 3h    35 (->2/06)  1d             ecmw.050511.arl
+         #                                                           25 (2/06->)  1m
+         #"ECmetF"       ECMWF, patched short term forecasts   3h    35 (->2/06)  72 - 144 h     ECmetF.05070100.arl
+         #                                                           25 (2/06->)
+         #"alad"         Aladin meso. forecasts (MeteoFrance)  3h    8            72h            aladinF.07042100.arl
+         #"wrf"          Weather Research & Forecasting        0.3h  2-50         ?h             d01.20051223.arl
+         #"d01", "do2",          WRF nested domains            0.3h  2-50         ?h             d01.20051223.arl
+
+1. Meteorological driver fields, provided in <.arl> format. For now, these are prepared by Thomas Koch of the MPI BG group in Jena as the conversion from GRIB to ARL proved to be more difficult than expected. The exact format of these meteorological driver fields can vary, depending on the source. A few of the (most popular) options that are coded into STILT are the following:
+   - **ECMWF (ECmetF) forecast data**: 3 hour time resolution, 72-144h forecast, 25km (~.25 degree resolution) grid
+   - **Aladin (alad) forecast data**: Aladin mesoscale forecasts (MeteoFrance), 3 hour time resolution, 72h forecast, 8km grid
+   - **Weather Research & Forecasting (wrf) forecast data**: WRF nested domains, variable time and horizontal resolution and forecast duration.
+2. A station file, which contains all the station-specific metadata (i.e. station name, station code, latitude, longitude, STILT-corrected elevation), in which each row represents a different station. An example of this file is located over at <stationfiles/stationfile_all.csv>.
+3. STILT configuration files (i.e. <LANDUSE.ASC>; <ROUGLEN.ASC>; <ASCDATA.CFG>; and <runhymodelc.bat>), which are created in the <setup.sh> script that comes with the "default" installment of STILT (see <STILT_README.md>). The script copies these files from source directory (which by default is <stilt_hysplit/bdyfiles>) to the (station-specific) run directory.
+
+Besides this input data, the followings files are needed (beside the default STILT R files and libraries):
 
 1. a bash submit script, that can communicate with the SLURM scheduler on our HPC cluster (Snellius) and set most of the neccessary STILT parameters before submitting STILT to the cluster. An example of such a file can be found at <batch_scripts/stilt-multistation.sh>. 
     Using this submit script, you can set the following STILT-specific run parameters:
-    - the neccessary directories: the parent directory (basedir), the run directory (rundir), the source directory that contains all the STILT-specific R functions (sourcepath), a directory that contains all template files that are later put into the run directory (bdyfiles_dir), and the output directory (path).
+    - the neccessary directories: the parent directory (basedir), the run directory (rundir), the source directory that contains all the STILT-specific R functions (sourcepath), a directory that contains all template files that are later put into the run directory (bdyfiles_dir), a directory where the neccessary meteorology files are stored (metdir), and the output directory (path).
     - the station file name (FILENAME) that contains all the station-specific metadata (i.e. station name, station code, latitude, longitude, STILT-corrected elevation), in which each row represents a different station. An example of this file is located over at <stationfiles/stationfile_all.csv>.
     - **the --sparse and --dense options: these options are used to save the footprint in either a dense or sparse format, the former of which means that the influence field is saved for each grid cell (even if the influence is zero); and the latter of which means that only the nonzero values of the simualted influence field are saved. This is done to save disk space, as the footprint can be quite large.**
     - **the option to --filter-times: this option is used to control whether STILT is ran for every hour of the day or only during well-mixed conditions.** For lowland sites (i.e. station with a STILT-corrected elevation below 1000m) this means STILT is ran only between 11 and 16 UTC, but for mountaineous sites (i.e. station with a STILT-corrected elevation above 1000m) STILT is ran only between 23 and 04 UTC to avoid any unwanted stratification effects in the nocturnal boundary layer (that wouldn't represent the 'average' conditions).
@@ -34,13 +57,14 @@ To prepare for a STILT run with the added sparse and multi-core functionality, t
     - the option to --calc-sum: this option controls whether the influence fields are summed over all timesteps of each STILT simulation, and therefore whether single-timestep footprints are returned or not.
     - the option to define --ens-mem-num: this option controls how many times a STILT simulation is ran for (i.e. how many ensemble members are used). This is useful if you want to quantify the uncertainty in the STILT simulations caused by the stochastic and turbulent effects on the particles (i.e. the atmospheric transport itself). This also appends the footprint output name with the current ensemble member number, so that the footprints are not overwritten. By default, this option is switched off.
     
-   The submit script loops over each station (row) in the user-defined stationfile and runs the <setup_multi.sh> script for each of these stations, which creates the neccessary (station-specific) run and output directories, and will occupy each run directory with the setting files neccessary to run STILT (<LANDUSE.ASC>; <ROUGLEN.ASC>; <ASCDATA.CFG>; and <runhymodelc.bat>), which are created in the <setup.sh> script that comes with the "default" installment of STILT (see <STILT_README.md>). The script copies these files from source directory, which by default is <stilt_hysplit/bdyfiles>.
+   The submit script loops over each station (row) in the user-defined stationfile and runs the <setup_multi.sh> script for each of these stations, which creates the neccessary (station-specific) run and output directories, and will occupy each run directory with the configuration files neccessary to run STILT (i.e. <LANDUSE.ASC>; <ROUGLEN.ASC>; <ASCDATA.CFG>; and <runhymodelc.bat>), which are created in the <setup.sh> script that comes with the "default" installment of STILT (see <STILT_README.md>). The script copies these files from source directory, which by default is <stilt_hysplit/bdyfiles>.
    
    After the neccessary directories have been initialized and the STILT-specific run parameters have been set, the submit script will run STILT for each station in the stationfile. Before the job is taken out of the SLURM queue, the simulations for each station should be finished first.
 
 
 2. the setStiltParam.r script, which is used to set some neccessary STILT parameters that are not set in the STILT configuration file
    This script sets some important parameters that are not set in the submit script, namely:
+   - the type of meteorological input data fed into STILT (by default 'ECmetF' for ECMWF forecast data)
    - the name of localization and footprint files created by STILT (by default '.RData' and 'footprint_{station}_{timestamp}.nc' respectively).
    - some other turbulence and mixing layer parameters that I left mostly to their default values, but can be changed if needed.
    - some options to set up a version of STILT that uses an online calculation with externally provided fluxes (e.g. VPRM fluxes for the biosphere or EDGAR fluxes for the anthroposphere). This is not used in the current version of STILT, but might be useful in the future.
@@ -51,7 +75,8 @@ To prepare for a STILT run with the added sparse and multi-core functionality, t
    - **the start and end date of the STILT run (by default set to run for 2021)**.
    - the hours (in UTC) for which the option --filter-times filters the hours for which STILT is ran. This can be set separately for lowland and mountaineous sites, as described above.
    - the name of the file that contains the time period and time resolution of the STILT run (by default '.RDataTimes')
-  
+
+
 ## SOME KEY POINTS IN UNDERSTANDING THE STILT CODE
 The main STILT functionality can be reduced to a few key scripts:
 - <stiltR/Trajec.r>: Function to run HYSPLIT particle dispersion model and to check distribution of particles in the model domain. This function is called by the Trajecmod.r function for each timestep of the simulation.
