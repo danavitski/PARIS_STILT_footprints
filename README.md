@@ -57,3 +57,6 @@ The main STILT functionality can be reduced to a few key scripts:
 - <stiltR/Trajec.r>: Function to run HYSPLIT particle dispersion model and to check distribution of particles in the model domain. This function is called by the Trajecmod.r function for each timestep of the simulation.
 - <stiltR/Trajecmod_sparse_dense.r>: this function calls Trajec.r for each backwards simulation timestep (as defined by create_times.r), which is later fed into the Trajecfoot.r function to save as a footprint. 
 - <stiltR/Trajecfoot_sparse.r> & <stiltR/create_sparse_footprints_coords.r>: these functions are used to create the sparse footprint files. The first script filters the particles in the object from Trajec.r that are outside the model domain and returns the object as 2D dense array, and using the second script it can convert these 2D arrays to a sparse format if requested.
+---
+
+### **If some things related to STILT are still unclear, have a look at the stiltR/README.r document that describes the functionality of the "default" STILT installation in more detail.**
