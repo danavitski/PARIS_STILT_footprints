@@ -4,11 +4,11 @@
 DISCLAIMER: THIS IS THE README FILE FOR THE STILT MODEL WITH ADDED SPARSE FOOTPRINT SAVING MULTI-CORE EXECUTION FUNCTIONALITY. 
 For *only* installing the "regular" version of STILT follow steps 1-6 of the instructions given in the <stiltR/README.md> file. To install STILT *including* the added functionalities, follow this README file! 
 
-This directory contains all R scripts needed to run STILT (the receptor oriented modelling package), as well as added functionality to save the footprint in a sparse format and run the model in parallel on multiple cores. 
+This directory contains all R scripts needed to run STILT (the receptor oriented modelling package), as well as added functionality to save the footprint in a sparse format and run the model in parallel on multiple cores. The <stiltR/> directory contains all STILT-related R functions, the <batch_scripts/> directory contains all bash scripts needed to submit single- or multi-core STILT jobs on the HPC cluster, and the <stationfiles/> directory contains an exemplary file with station-specific metadata (i.e. station name, station code, latitude, longitude, STILT-corrected elevation) used in PARIS. The <merged_stilt_hysplit/> directory contains the libraries 
 
-- Instructions to install STILT are given under the chapter 'INSTALLING STILT'. 
-- A few examples on how to run STILT with the different functionalities are given below under 'RUNNING STILT'.
-- A listing of all functions used and what they do is given under 'DIRECTORY LISTING'.
+- Instructions to install STILT are given under the section 'INSTALLING STILT'. 
+- A few examples on how to run STILT with the different functionalities are given below under the 'USING STILT + added functionalities' section.
+- A quick guide into STILT's key functionalities are given in the section 'SOME KEY POINTS IN UNDERSTANDING THE STILT CODE'.
 ---
 
 ## INSTALLING STILT

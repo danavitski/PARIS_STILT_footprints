@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time 01-00:00:00                  # WALLTIME limit
+#SBATCH --time 02-00:00:00                  # WALLTIME limit
 #SBATCH -n 1                                # ask for 52 tasks (amount of stations in stationfile_all.csv)
 #SBATCH -N 1                                # ask for 1 node
 #SBATCH --mem-per-cpu=3G                    # max memory per CPU
@@ -25,7 +25,7 @@ fpdir='/projects/0/ctdas/PARIS/DATA/footprints/wur/'
 #fpdir='/gpfs/scratch1/shared/dkivits/STILT/footprints/'
 
 # Declare alternative (project-specific) directory for STILT output
-altdir="for_Ruben"
+altdir="for_Ruben_CTEHRres"
 
 if [ ! -v $altdir ]
 then
@@ -44,14 +44,24 @@ export PATH="$PATH:${basedir}/merged_stilt_hysplit"
 export MKL_NUM_THREADS=1
 
 # Define grid
-numpix_x=140                            # number of pixels in x directions in grid
-numpix_y=90                             # number of pixels in y directions in grid
-lon_ll=-25                              # lower left corner of grid
-lat_ll=30                               # lower left corner of grid
-lon_ur=45                               # lower left corner of grid
-lat_ur=75                               # lower left corner of grid
-lon_res=0.5                             # resolution in degrees longitude
-lat_res=0.5                             # resolution in degrees latitude
+#numpix_x=140                            # number of pixels in x directions in grid
+#numpix_y=90                             # number of pixels in y directions in grid
+#lon_ll=-25                              # lower left corner of grid
+#lat_ll=30                               # lower left corner of grid
+#lon_ur=45                               # lower left corner of grid
+#lat_ur=75                               # lower left corner of grid
+#lon_res=0.5                             # resolution in degrees longitude
+#lat_res=0.5                             # resolution in degrees latitude
+
+# Define grid
+lat_ll=33.0
+lat_ur=72.0
+lon_ll=-15.0
+lon_ur=35.0
+lon_res=0.2
+lat_res=0.1
+numpix_x=250
+numpix_y=390
 
 # go to STILT compilation directory
 cd $sourcepath
